@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>Personal info</title>
+    <div th:insert="~{fragments/fragmentImport :: import}"></div>
+    <link rel="stylesheet"
+          th:href="@{/styles/createNewUser.css}"/>
+</head>
+<body>
+<div th:insert="~{fragments/fragmentLeft :: left}"></div>
+<div th:insert="~{fragments/fragmentTop :: top}"></div>
+    <!-- Content -->
+    <div id="content">
+        <div class="container-fluid">
+            <!--/*@thymesVar id="user" type="com.example.fiegerunner.dto.EmployeeAddReadDto"*/-->
+            <form th:action="@{/create}" id="form-registration" method="post" th:object="${user}">
+                <div class="text-field" style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
+                    <label for="expertis" class="text-field__label">Expertis:
+                        <input class="text-field__input"
+                               type="number" name="expertis" required
+                               placeholder="Wpisz expertis pracownika"
+                               id="expertis" th:value="*{expertis}">
+                    </label>
+
+                    <label for="firstName" class="text-field__label">Imię:
+                        <input class="text-field__input"
+                                type="text" name="firstName" required id="firstName"
+                               oninput="this.value=this.value.replace(/[^a-zA-Z]/g,'');"
+                               placeholder="Wpisz imię pracownia"
+                               th:value="*{firstName}">
+                    </label>
+
+                    <label for="lastName" class="text-field__label">Nazwisko:
+                        <input class="text-field__input"
+                               type="text" name="lastName" id="lastName"
+                               required oninput="this.value=this.value.replace(/[^a-zA-Z]/g,'');"
+                               placeholder="Wpisz nazwisko pracownia"
+                               th:value="*{lastName}">
+                    </label>
+
+                    <label for="supervisorExpertis" class="text-field__label">Expertis Kierownika:
+                        <input class="text-field__input"
+                               type="number" name="supervisorExpertis" id="supervisorExpertis"
+                               placeholder="Wpisz expertis kierownika pracownia"
+                               required th:value="*{supervisorExpertis}">
+                    </label>
+
+
+                <div>
+                    <label for="department">Dział:
+                        <select id="department" name="department" required>
+                            <!--/*@thymesVar id="department" type="java.lang.String"*/-->
+                            <option th:each="dep : ${department}"
+                                    th:value="${dep}"
+                                    th:text="${dep}">Dep</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label for="team">Grupa:
+                        <select id="team" name="team" required >
+                            <!--/*@thymesVar id="team" type="java.lang.String"*/-->
+                            <option th:each="teams : ${team}"
+                                    th:value="${teams}"
+                                    th:text="${teams}">Team</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label for="position">Stanowisko:
+                        <select id="position" name="position" required>
+                            <!--/*@thymesVar id="position" type="java.lang.String"*/-->
+                            <option th:each="positions : ${position}"
+                                    th:value="${positions}"
+                                    th:text="${positions}">Position</option>
+                        </select>
+                    </label>
+                </div>
+                    <p>Gender</p>
+                <!--/*@thymesVar id="gender" type="java.lang.String"*/-->
+                <div th:each="genders : ${gender}">
+                    <input class="custom-radio" th:id="${genders}" type="radio" name="gender" th:value="${genders}" required>
+                    <label th:for="${genders}" th:text="${genders}">Gender type</label>
+                </div>
+                    <p>Agencja czy Fiege?</p>
+                <!--/*@thymesVar id="employment" type="java.lang.String"*/-->
+                <div th:each="employments : ${employment}">
+                    <input class="custom-radio" th:id="${employments}" type="radio" name="employment" th:value="${employments}" required>
+                    <label th:for="${employments}" th:text="${employments}">Employment</label>
+                </div>
+
+                <!--/*@thymesVar id="shift" type="java.lang.String"*/-->
+                    <p>Zmiana</p>
+                <div th:each="shifts : ${shift}">
+                    <input class="custom-radio" th:id="${shifts}" type="radio" name="shift" th:value="${shifts}" required>
+                    <label th:for="${shifts}" th:text="${shifts}">Shift</label>
+                </div>
+                <button type="submit">Dodać pracownika</button>
+                </div>
+            </form>
+            <div th:if="${errors}">
+                <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial -->
+
+</body>
+</html>
