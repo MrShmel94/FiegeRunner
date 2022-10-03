@@ -4,10 +4,14 @@ import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
 
-    AreaManager,
-    TeamLead,
-    Storekeeper,
-    Admin;
+    AreaManager ("Area Manager"),
+    TeamLead ("TeamLeader"),
+    Storekeeper ("Magazynier"),
+    Admin ("Admin");
+
+    Role(String s) {
+
+    }
 
     @Override
     public String getAuthority() {

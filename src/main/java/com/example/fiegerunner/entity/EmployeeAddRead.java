@@ -38,9 +38,6 @@ public class EmployeeAddRead {
     Department department;
 
     @Enumerated(EnumType.STRING)
-    Role role;
-
-    @Enumerated(EnumType.STRING)
     Position position;
 
     String comment;

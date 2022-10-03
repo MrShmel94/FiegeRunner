@@ -4,6 +4,7 @@ import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
 import com.example.fiegerunner.entity.EmployeeRegistered;
 import com.example.fiegerunner.entity.EmployeeAddRead;
+import com.example.fiegerunner.entity.PerformanceProjection;
 import com.example.fiegerunner.mapper.EmployeeAddReadMapper;
 import com.example.fiegerunner.mapper.EmployeeCreateMapper;
 import com.example.fiegerunner.repository.EmployeeRepository;
@@ -17,7 +18,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +42,23 @@ public class EmployeeService implements UserDetailsService {
                 .map(mapper::map).map(repositoryAdded::save).orElseThrow();
     }
 
+    public List<PerformanceProjection> getAllPerformanceForEmployee(
+            String userName, LocalDate dateBefore, LocalDate dateAfter
+    ){
+        var mayBeUser = repository.findByUsername(userName);
+        if (mayBeUser.isPresent()){
+            var mayBeExpertis = repositoryAdded.findByExpertis(mayBeUser.get().getExpertis());
+            if(mayBeExpertis.isPresent()){
+                var employeeAddRead = mayBeExpertis.get();
+                var allExpertisByTeam = repositoryAdded.findAllExpertisByTeam(employeeAddRead.getTeam().name(),
+                        employeeAddRead.getShift().name(), employeeAddRead.getDepartment().name());
+                return performancePackRepository.findByAllPerformanceForYourTeam(
+                        dateBefore, dateAfter, allExpertisByTeam.toArray(new Integer[0])
+                );
+            }
+        }
+        return new ArrayList<>();
+    }
 
 
     @Override

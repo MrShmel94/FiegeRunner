@@ -2,6 +2,7 @@ package com.example.fiegerunner.controller;
 
 import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
+import com.example.fiegerunner.entity.PerformanceProjection;
 import com.example.fiegerunner.entity.enums.*;
 import com.example.fiegerunner.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,12 +54,23 @@ public class StartController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/usersPerformance")
+    public String findAllUsers(){
+        return "user/allUsersPerformance";
+    }
+
+    @PostMapping("/usersPerformance")
     public String findAllUsers(Model model,
+                               @RequestParam String dateBefore,
+                               @RequestParam String dateAfter,
                                @CurrentSecurityContext SecurityContext context,
                                @AuthenticationPrincipal UserDetails userDetails
-                               ){
-        return "user/users";
+    ){
+        var allPerformanceForEmployee = service.getAllPerformanceForEmployee(userDetails.getUsername(),
+                LocalDate.parse(dateBefore), LocalDate.parse(dateAfter));
+        model.addAttribute("performance", allPerformanceForEmployee);
+        System.out.println();
+        return "user/allUsersPerformance";
     }
 
     @PostMapping("/registration")

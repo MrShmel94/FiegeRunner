@@ -3,11 +3,14 @@ package com.example.fiegerunner.entity.enums;
 
 public enum Department {
 
-    SortPack,
-    PickStow,
-    Shipping,
-    Receive,
-    Administration,
-    Quality
+    SortPack ("Sort/Pack"),
+    PickStow ("Pick/Stow"),
+    Shipping ("Shipping"),
+    Receive ("Receive"),
+    Administration ("Administration"),
+    Quality ("Quality");
 
+    Department(String s) {
+
+    }
 }

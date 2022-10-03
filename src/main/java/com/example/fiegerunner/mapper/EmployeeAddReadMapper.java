@@ -18,7 +18,6 @@ public class EmployeeAddReadMapper implements Mapper <EmployeeAddReadDto, Employ
                 .team(object.getTeam())
                 .shift(object.getShift())
                 .department(object.getDepartment())
-                .role(Role.Storekeeper)
                 .position(object.getPosition())
                 .gender(object.getGender())
                 .employment(object.getEmployment())

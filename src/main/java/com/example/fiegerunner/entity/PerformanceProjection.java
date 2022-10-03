@@ -3,6 +3,8 @@ package com.example.fiegerunner.entity;
 public interface PerformanceProjection {
 
     Integer getExpertis();
+    String getFirstName();
+    String getLastName();
     Integer getQlOpt();
     Integer getTimeOpt();
     Integer getQlSingle();
