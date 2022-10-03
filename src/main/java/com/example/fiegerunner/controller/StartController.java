@@ -1,6 +1,6 @@
 package com.example.fiegerunner.controller;
 
-import com.example.fiegerunner.dto.EmployeeAddDto;
+import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
 import com.example.fiegerunner.entity.enums.*;
 import com.example.fiegerunner.service.EmployeeService;
@@ -15,18 +15,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/users")
 public class StartController {
 
     private final EmployeeService service;
 
     @GetMapping("/adduser")
-    public String createEmployee(Model model, @ModelAttribute("user") EmployeeAddDto employee){
+    public String createEmployee(Model model, @ModelAttribute("user") EmployeeAddReadDto employee){
         model.addAttribute("user", employee);
         model.addAttribute("shift", Shift.values());
         model.addAttribute("team", Team.values());
@@ -38,7 +36,7 @@ public class StartController {
     }
 
     @PostMapping("/create")
-    public String addedEmployee(@ModelAttribute EmployeeAddDto employee,
+    public String addedEmployee(@ModelAttribute EmployeeAddReadDto employee,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes
                                 ){
@@ -56,7 +54,6 @@ public class StartController {
                                @CurrentSecurityContext SecurityContext context,
                                @AuthenticationPrincipal UserDetails userDetails
                                ){
-
         return "user/users";
     }
 

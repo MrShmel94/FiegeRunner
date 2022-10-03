@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EmployeeAdded {
+public class EmployeeAddRead {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

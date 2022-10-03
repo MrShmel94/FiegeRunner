@@ -27,7 +27,7 @@ fileInput.addEventListener("change", e => {
    console.log(" > " + fileInput.value)
    uploadIcon.innerHTML = 'check_circle';
    dragDropText.innerHTML = 'File Dropped Successfully!';
-   document.querySelector(".label").innerHTML = `drag & drop or <span class="browse-files"> <input type="file" class="default-file-input" style=""/> <span class="browse-files-text" style="top: 0;"> browse file</span></span>`;
+   document.querySelector(".label").innerHTML = `drag & drop or <span class="browse-files"> <input type="file" name="files" class="default-file-input" style=""/> <span class="browse-files-text" style="top: 0;"> browse file</span></span>`;
    uploadButton.innerHTML = `Upload`;
    fileName.innerHTML = fileInput.files[0].name;
    fileSize.innerHTML = (fileInput.files[0].size/1024).toFixed(1) + " KB";
@@ -82,7 +82,7 @@ if(isAdvancedUpload) {
    draggableFileArea.addEventListener("drop", e => {
       uploadIcon.innerHTML = 'check_circle';
       dragDropText.innerHTML = 'File Dropped Successfully!';
-      document.querySelector(".label").innerHTML = `drag & drop or <span class="browse-files"> <input type="file" class="default-file-input" style=""/> <span class="browse-files-text" style="top: -23px; left: -20px;"> browse file</span> </span>`;
+      document.querySelector(".label").innerHTML = `drag & drop or <span class="browse-files"> <input type="file" class="default-file-input" name="files" style=""/> <span class="browse-files-text" style="top: -23px; left: -20px;"> browse file</span> </span>`;
       uploadButton.innerHTML = `Upload`;
 
       let files = e.dataTransfer.files;
@@ -102,6 +102,6 @@ removeFileButton.addEventListener("click", () => {
    fileInput.value = '';
    uploadIcon.innerHTML = 'file_upload';
    dragDropText.innerHTML = 'Drag & drop any file here';
-   document.querySelector(".label").innerHTML = `or <span class="browse-files"> <input type="file" class="default-file-input"/> <span class="browse-files-text">browse file</span> <span>from device</span> </span>`;
+   document.querySelector(".label").innerHTML = `or <span class="browse-files"> <input type="file" class="default-file-input" name="files"/> <span class="browse-files-text">browse file</span> <span>from device</span> </span>`;
    uploadButton.innerHTML = `Upload`;
 });

@@ -1,16 +1,16 @@
 package com.example.fiegerunner.mapper;
 
-import com.example.fiegerunner.dto.EmployeeAddDto;
-import com.example.fiegerunner.entity.EmployeeAdded;
+import com.example.fiegerunner.dto.EmployeeAddReadDto;
+import com.example.fiegerunner.entity.EmployeeAddRead;
 import com.example.fiegerunner.entity.enums.Role;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmployeeAddedMapper implements Mapper <EmployeeAddDto, EmployeeAdded>{
+public class EmployeeAddReadMapper implements Mapper <EmployeeAddReadDto, EmployeeAddRead>{
 
     @Override
-    public EmployeeAdded map(EmployeeAddDto object) {
-        return EmployeeAdded.builder()
+    public EmployeeAddRead map(EmployeeAddReadDto object) {
+        return EmployeeAddRead.builder()
                 .expertis(object.getExpertis())
                 .firstName(object.getFirstName())
                 .lastName(object.getLastName())

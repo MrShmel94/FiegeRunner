@@ -11,5 +11,5 @@ spring:
       max-request-size: 10MB
   jpa:
     properties.hibernate:
-      show_sql: true
+      show_sql: false
       format_sql: true

@@ -3,75 +3,17 @@
 <head>
     <meta charset="UTF-8" >
     <title>Personal info</title>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+    <div th:insert="~{fragments/fragmentImport :: import}"></div>
     <link rel="stylesheet"
           th:href="@{/styles/createNewUser.css}"/>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div id="viewport">
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <header>
-            <a href="/user">My App</a>
-        </header>
-        <ul class="nav">
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-view-dashboard"></i> Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-link"></i> Shortcuts
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-widgets"></i> Overview
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-calendar"></i> Events
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-info-outline"></i> About
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-settings"></i> Services
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-comment-more"></i> Contact
-                </a>
-            </li>
-        </ul>
-    </div>
+<div th:insert="~{fragments/fragmentLeft :: left}"></div>
+<div th:insert="~{fragments/fragmentTop :: top}"></div>
     <!-- Content -->
     <div id="content">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <span th:text="${#authentication.principal.username}">Username</span>
-                    </li>
-                    <li>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">Logout</button>
-        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
         <div class="container-fluid">
-            <!--/*@thymesVar id="user" type="com.example.fiegerunner.dto.EmployeeAddDto"*/-->
+            <!--/*@thymesVar id="user" type="com.example.fiegerunner.dto.EmployeeAddReadDto"*/-->
             <form th:action="@{/create}" id="form-registration" method="post" th:object="${user}">
                 <div class="text-field" style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
                     <label for="expertis" class="text-field__label">Expertis:

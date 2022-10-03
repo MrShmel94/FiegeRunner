@@ -4,7 +4,7 @@ import com.example.fiegerunner.entity.enums.*;
 import lombok.Value;
 
 @Value
-public class EmployeeReadDto {
+public class EmployeeAddReadDto {
 
     Integer expertis;
     String firstName;
@@ -14,6 +14,7 @@ public class EmployeeReadDto {
     Department department;
     Position position;
     Gender gender;
-    String fullNameSupervisor;
+    Integer supervisorExpertis;
+    Employment employment;
 
 }

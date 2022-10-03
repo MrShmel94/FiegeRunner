@@ -1,13 +1,14 @@
 package com.example.fiegerunner.service;
 
-import com.example.fiegerunner.dto.EmployeeAddDto;
+import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
 import com.example.fiegerunner.entity.EmployeeRegistered;
-import com.example.fiegerunner.entity.EmployeeAdded;
-import com.example.fiegerunner.mapper.EmployeeAddedMapper;
+import com.example.fiegerunner.entity.EmployeeAddRead;
+import com.example.fiegerunner.mapper.EmployeeAddReadMapper;
 import com.example.fiegerunner.mapper.EmployeeCreateMapper;
 import com.example.fiegerunner.repository.EmployeeRepository;
 import com.example.fiegerunner.repository.EmployeeRepositoryAdded;
+import com.example.fiegerunner.repository.PerformancePackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,14 +25,15 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class EmployeeService implements UserDetailsService {
 
-    private final EmployeeAddedMapper mapper;
+    private final EmployeeAddReadMapper mapper;
     private final EmployeeRepository repository;
     private final EmployeeRepositoryAdded repositoryAdded;
+    private final PerformancePackRepository performancePackRepository;
     private final EmployeeCreateMapper mapperCreate;
 
 
     @Transactional
-    public EmployeeAdded create(EmployeeAddDto employee){
+    public EmployeeAddRead create(EmployeeAddReadDto employee){
         return Optional.of(employee)
                 .map(mapper::map).map(repositoryAdded::save).orElseThrow();
     }
