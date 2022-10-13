@@ -2,6 +2,7 @@ package com.example.fiegerunner.controller;
 
 import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
+import com.example.fiegerunner.entity.EmployeeAddRead;
 import com.example.fiegerunner.entity.PerformanceProjection;
 import com.example.fiegerunner.entity.enums.*;
 import com.example.fiegerunner.service.EmployeeService;
@@ -55,22 +56,31 @@ public class StartController {
     }
 
     @GetMapping("/usersPerformance")
-    public String findAllUsers(){
+    public String findAllPerformance(){
         return "user/allUsersPerformance";
     }
 
     @PostMapping("/usersPerformance")
-    public String findAllUsers(Model model,
+    public String findAllPerformance(Model model,
                                @RequestParam String dateBefore,
                                @RequestParam String dateAfter,
                                @CurrentSecurityContext SecurityContext context,
                                @AuthenticationPrincipal UserDetails userDetails
     ){
+        System.out.println(context.getAuthentication().getDetails());
         var allPerformanceForEmployee = service.getAllPerformanceForEmployee(userDetails.getUsername(),
                 LocalDate.parse(dateBefore), LocalDate.parse(dateAfter));
         model.addAttribute("performance", allPerformanceForEmployee);
         System.out.println();
         return "user/allUsersPerformance";
+    }
+
+    @GetMapping("/allUsers")
+    public String findAllEmployee(Model model,
+    @AuthenticationPrincipal UserDetails userDetails){
+        var employeeAddReads = service.allEmployeeByTeam(userDetails.getUsername());
+        model.addAttribute("users", employeeAddReads);
+        return "user/users";
     }
 
     @PostMapping("/registration")

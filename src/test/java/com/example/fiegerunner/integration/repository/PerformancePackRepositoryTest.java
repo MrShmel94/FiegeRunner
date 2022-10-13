@@ -2,6 +2,7 @@ package com.example.fiegerunner.integration.repository;
 
 import com.example.fiegerunner.entity.EmployeeAddRead;
 import com.example.fiegerunner.entity.EmployeeRegistered;
+import com.example.fiegerunner.entity.perfomance.PerformancePack;
 import com.example.fiegerunner.integration.annotation.IT;
 import com.example.fiegerunner.repository.EmployeeRepository;
 import com.example.fiegerunner.repository.EmployeeRepositoryAdded;
@@ -49,6 +50,19 @@ public class PerformancePackRepositoryTest {
     @Test
     void checkExpertis(){
         var byExpertis = repositoryAdded.findByExpertis(304573);
+        System.out.println();
+    }
+
+    @Test
+    void checkFindAll(){
+        var allBySupervisorExpertis = repositoryAdded.findAllBySupervisorExpertis(1);
+        System.out.println();
+    }
+
+    @Test
+    void checkPer(){
+        var allByExpertisAndDateBetween = repository.findAllByExpertisAndDateBetween(304917, LocalDate.of(2020, 5, 10)
+                , LocalDate.of(2022, 10, 15));
         System.out.println();
     }
 

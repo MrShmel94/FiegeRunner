@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -49,5 +51,9 @@ public class EmployeeAddRead {
     Employment employment;
 
     Integer supervisorExpertis;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    List<Evaluation> allEvaluation = new ArrayList<>();
 
 }

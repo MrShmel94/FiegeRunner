@@ -10,6 +10,18 @@ import java.util.Optional;
 public interface EmployeeRepositoryAdded extends
         JpaRepository<EmployeeAddRead, Integer> {
 
+    Optional<EmployeeAddRead> findById(Integer id);
+
+    @Query(
+            nativeQuery = true,
+            value = """
+SELECT *
+FROM employee
+WHERE expertis IN (:expertis)
+"""
+    )
+    List<EmployeeAddRead> findAllEmployeeByTeam(Integer ... expertis);
+
     Optional<EmployeeAddRead> findByExpertis(Integer expertis);
 
     @Query(
@@ -22,4 +34,6 @@ AND department = :department
 """
     )
     List<Integer> findAllExpertisByTeam(String team, String shift, String department);
+
+    List<EmployeeAddRead> findAllBySupervisorExpertis(Integer supervisorExpertis);
 }

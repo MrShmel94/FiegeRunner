@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>Personal info</title>
+    <div th:insert="~{fragments/fragmentImport :: import}"></div>
+    <link rel="stylesheet"
+          th:href="@{/styles/performanceAllUser.css}"/>
+</head>
+<body>
+<div th:insert="~{fragments/fragmentLeft :: left}"></div>
+<div th:insert="~{fragments/fragmentTop :: top}"></div>
+    <!-- Content -->
+    <div id="content">
+        <div class="container-fluid">
+            <!--/*@thymesVar id="performance" type="com.example.fiegerunner.entity.PerformanceProjection"*/-->
+            <form th:action="@{/usersPerformance}"  method="post" th:object="${performance}">
+                <div class="text-field" style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
+                    <label for="dateBefore" class="text-field__label">Date Before:
+                        <input class="text-field__input"
+                               type="date" name="dateBefore" required
+                               id="dateBefore">
+                    </label>
+
+                    <label for="dateAfter" class="text-field__label">Date After:
+                        <input class="text-field__input"
+                               type="date" name="dateAfter" required
+                               id="dateAfter">
+                    </label>
+
+                    <button type="submit">Pokaż wydajności</button>
+                </div>
+
+                <section>
+                    <!--for demo wrap-->
+                    <h1>Wydajności</h1>
+                    <div class="tbl-header">
+                        <table id="wydajno">
+                            <thead>
+                            <tr>
+                                <th>Expertis</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>OPT QL</th>
+                                <th>H Opt</th>
+                                <th>Multi QL</th>
+                                <th>H Multi</th>
+                                <th>Single QL</th>
+                                <th>H Single</th>
+                                <th>Sort QL</th>
+                                <th>H Sort</th>
+                                <th>WMO QL</th>
+                                <th>H WMO</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="tbl-content">
+                        <table table id="wydajnoS">
+                            <tbody th:each="projection : ${performance}">
+                            <tr>
+                                <td th:text="${projection.expertis}"></td>
+                                <td th:text="${projection.firstName}"></td>
+                                <td th:text="${projection.lastName}"></td>
+                                <td th:text="${projection.qlOpt}"></td>
+                                <td th:text="${projection.timeOpt}"></td>
+                                <td th:text="${projection.qlMulti}"></td>
+                                <td th:text="${projection.timeMulti}"></td>
+                                <td th:text="${projection.qlSingle}"></td>
+                                <td th:text="${projection.timeSingle}"></td>
+                                <td th:text="${projection.qlSort}"></td>
+                                <td th:text="${projection.timeSort}"></td>
+                                <td th:text="${projection.qlWmo}"></td>
+                                <td th:text="${projection.timeWmo}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- partial -->
+<script th:src="@{/js/tablesort.js}"> </script>
+<script>
+    new Tablesort(document.getElementById('wydajno'));
+</script>
+<script>
+    $(window).on("load resize ", function() {
+        var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+        $('.tbl-header').css({'padding-right':scrollWidth});
+    }).resize();
+</script>
+
+</body>
+</html>

@@ -8,6 +8,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
+    @GetMapping("test")
+    public String test(){
+        return "user/test";
+    }
+
+    @GetMapping("/all")
+    public String qwe(){
+        return "user/allUsersPerfom";
+    }
+
     @GetMapping("/import")
     public String importFiles(){
         return "user/import";
@@ -28,8 +38,8 @@ public class LoginController {
         return "user/user";
     }
 
-    @GetMapping("/test")
-    public String test() {
+    @GetMapping("/testa")
+    public String testa() {
         return "user/header";
     }
 }
