@@ -2,6 +2,8 @@ package com.example.fiegerunner.controller;
 
 import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
+import com.example.fiegerunner.dto.EmployeeReadTLDto;
+import com.example.fiegerunner.dto.PerformanceDto;
 import com.example.fiegerunner.entity.EmployeeAddRead;
 import com.example.fiegerunner.entity.PerformanceProjection;
 import com.example.fiegerunner.entity.enums.*;
@@ -14,10 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -60,27 +59,41 @@ public class StartController {
         return "user/allUsersPerformance";
     }
 
+//    @PostMapping("/usersPerformance1")
+//    public String findAllPerformance(Model model,
+//                               @RequestParam String dateBefore,
+//                               @RequestParam String dateAfter,
+//                               @CurrentSecurityContext SecurityContext context,
+//                               @AuthenticationPrincipal UserDetails userDetails
+//    ){
+//        System.out.println(context.getAuthentication().getDetails());
+//        var allPerformanceForEmployee = service.getAllPerformanceForEmployee(userDetails.getUsername(),
+//                LocalDate.parse(dateBefore), LocalDate.parse(dateAfter));
+//        model.addAttribute("performance", allPerformanceForEmployee);
+//        System.out.println();
+//        return "user/allUsersPerformance";
+//    }
+
     @PostMapping("/usersPerformance")
-    public String findAllPerformance(Model model,
-                               @RequestParam String dateBefore,
-                               @RequestParam String dateAfter,
-                               @CurrentSecurityContext SecurityContext context,
-                               @AuthenticationPrincipal UserDetails userDetails
+    @ResponseBody
+    public List<PerformanceDto> add(
+                                     @RequestParam String dateBefore,
+                                     @RequestParam String dateAfter,
+                                     @CurrentSecurityContext SecurityContext context,
+                                     @AuthenticationPrincipal UserDetails userDetails
     ){
         System.out.println(context.getAuthentication().getDetails());
         var allPerformanceForEmployee = service.getAllPerformanceForEmployee(userDetails.getUsername(),
                 LocalDate.parse(dateBefore), LocalDate.parse(dateAfter));
-        model.addAttribute("performance", allPerformanceForEmployee);
         System.out.println();
-        return "user/allUsersPerformance";
+        return allPerformanceForEmployee;
     }
 
     @GetMapping("/allUsers")
-    public String findAllEmployee(Model model,
-    @AuthenticationPrincipal UserDetails userDetails){
-        var employeeAddReads = service.allEmployeeByTeam(userDetails.getUsername());
-        model.addAttribute("users", employeeAddReads);
-        return "user/users";
+    @ResponseBody
+    public List<EmployeeReadTLDto> findAllEmployee(
+                                             @AuthenticationPrincipal UserDetails userDetails){
+        return service.allEmployeeByTeam(userDetails.getUsername());
     }
 
     @PostMapping("/registration")

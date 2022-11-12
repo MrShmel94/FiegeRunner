@@ -3,16 +3,18 @@ package com.example.fiegerunner.service;
 import com.example.fiegerunner.dto.EmployeeAddReadDto;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
 import com.example.fiegerunner.dto.EmployeeReadTLDto;
+import com.example.fiegerunner.dto.PerformanceDto;
 import com.example.fiegerunner.entity.EmployeeRegistered;
 import com.example.fiegerunner.entity.EmployeeAddRead;
-import com.example.fiegerunner.entity.PerformanceProjection;
 import com.example.fiegerunner.mapper.EmployeeAddReadMapper;
 import com.example.fiegerunner.mapper.EmployeeCreateMapper;
 import com.example.fiegerunner.mapper.EmployeeReadTLMapper;
+import com.example.fiegerunner.mapper.PerformancePackMapper;
 import com.example.fiegerunner.repository.EmployeeRepository;
 import com.example.fiegerunner.repository.EmployeeRepositoryAdded;
 import com.example.fiegerunner.repository.PerformancePackRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +31,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class EmployeeService implements UserDetailsService {
@@ -38,6 +41,7 @@ public class EmployeeService implements UserDetailsService {
     private final EmployeeRepositoryAdded repositoryAdded;
     private final PerformancePackRepository performancePackRepository;
     private final EmployeeCreateMapper mapperCreate;
+    private final PerformancePackMapper performancePackMapper;
     private final EmployeeReadTLMapper tlMapper;
 
 
@@ -48,14 +52,15 @@ public class EmployeeService implements UserDetailsService {
     }
 
     @PreAuthorize("hasAnyRole('Admin', 'TeamLead', 'AreaManager')")
-    public List<PerformanceProjection> getAllPerformanceForEmployee(
+    public List<PerformanceDto> getAllPerformanceForEmployee(
             String userName, LocalDate dateBefore, LocalDate dateAfter
     ) {
         var maybeAllExpertis = findAllExpertisByTeam(userName);
         if (!maybeAllExpertis.isEmpty()) {
-            return performancePackRepository.findByAllPerformanceForYourTeam(
+            var byAllPerformanceForYourTeam = performancePackRepository.findByAllPerformanceForYourTeam(
                     dateBefore, dateAfter, maybeAllExpertis.toArray(new Integer[0])
             );
+            return byAllPerformanceForYourTeam.stream().map(performancePackMapper::map).collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
@@ -76,6 +81,8 @@ public class EmployeeService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("username {}", username);
+        System.out.println(username);
         return repository.findByUsername(username)
                 .map(employee -> new User(
                         employee.getUsername(),

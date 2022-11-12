@@ -20,10 +20,6 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    EmployeeAddRead employeeId;
-
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
     EmployeeAddRead supervisorId;
