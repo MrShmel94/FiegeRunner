@@ -1,0 +1,2 @@
+2022-11-17 12:17:21.986  WARN 3337 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-11-17 12:17:52.131  INFO 3337 --- [http-nio-8080-exec-1] c.e.f.controller.ImportController        : User test@gmail.ru trying to load 1 files.
