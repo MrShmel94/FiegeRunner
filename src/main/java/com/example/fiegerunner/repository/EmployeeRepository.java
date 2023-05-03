@@ -8,4 +8,5 @@ public interface EmployeeRepository extends
         JpaRepository<EmployeeRegistered, Integer> {
 
     Optional<EmployeeRegistered> findByUsername(String username);
+
 }

@@ -1,6 +1,5 @@
 package com.example.fiegerunner.controller;
 
-import com.example.fiegerunner.service.ImportService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,7 @@ import java.util.Objects;
 @Slf4j
 public class ImportController {
 
-    private final ImportService service2;
+    //private final ImportService service2;
     private final String TYPE_FORMAT = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     @SneakyThrows
@@ -31,7 +30,7 @@ public class ImportController {
                 if (Objects.requireNonNull(file.getContentType()).equalsIgnoreCase(TYPE_FORMAT)) {
 
                     System.out.println(file.getOriginalFilename());
-                    service2.get(file.getInputStream());
+                    //service2.get(file.getInputStream());
                 }
             }
         }

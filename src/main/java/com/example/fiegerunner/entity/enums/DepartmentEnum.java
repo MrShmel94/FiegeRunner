@@ -1,6 +1,5 @@
 package com.example.fiegerunner.entity.enums;
 
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,16 +7,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public enum Role implements GrantedAuthority {
+public enum DepartmentEnum {
 
-    AreaManager ("AreaManager"),
-    TeamLead ("TeamLeader"),
-    Storekeeper ("Magazynier"),
-    Admin ("Admin");
+    SortPack ("SortPack"),
+    PickStow ("PickStow"),
+    Shipping ("Shipping"),
+    Receive ("Receive"),
+    Administration ("Administration"),
+    Quality ("Quality"),
+    Unloading ("Unloading"),
+    Rodzicielska ("Rodzicielska"),
+    Returns ("Returns");
 
     private final String value;
 
-    Role (String s) {
+    DepartmentEnum(String s) {
         this.value = s;
     }
 
@@ -38,10 +42,5 @@ public enum Role implements GrantedAuthority {
                     return item;
                 })
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getAuthority() {
-        return name();
     }
 }

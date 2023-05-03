@@ -15,15 +15,18 @@ public class EmployeeRegistered {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    @Column(name = "user_name")
-    String username;
+    @Column(name = "user_name" , nullable = false)
+    private String username;
 
-    Integer expertis;
+    @Column(name = "expertis", nullable = false)
+    private Integer expertis;
 
-    String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Enumerated(EnumType.STRING)
-    Role role;
+    @Column(name = "role", nullable = false)
+    private Role role;
 }
