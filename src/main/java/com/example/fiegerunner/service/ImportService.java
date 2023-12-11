@@ -1,7 +1,5 @@
 //package com.example.fiegerunner.service;
 //
-//import com.example.fiegerunner.entity.perfomancePack.*;
-//import com.example.fiegerunner.repository.PerformancePackRepository;
 //import lombok.RequiredArgsConstructor;
 //import lombok.SneakyThrows;
 //import lombok.extern.slf4j.Slf4j;
@@ -20,50 +18,52 @@
 //
 //@Slf4j
 //@Service
-//@RequiredArgsConstructor
 //public class ImportService {
 //
-//    private final PerformancePackRepository repository;
-//    private final static String NAME_VALUE_OPT = "LINESORTPACK";
-//    private final static String NAME_VALUE_SINGLE = "PACK_SINGLE";
-//    private final static String NAME_VALUE_MULTI = "PACK_MULTI";
-//    private final static String NAME_VALUE_SORT = "SORT";
-//    private final static String NAME_FILE_UPH_I = "UPH I";
-//    private final static String NAME_FILE_UPH_WMO = "UPH I - WMO";
-//    private final static String NAME_FILE_SUPPORT = "Activities per Employee";
-//    private final static String NAME_OPTIMUS_ACTIVITY = "Linesorter Pack";
-//    private final static String NAME_NTT_ACTIVITY = "NTT";
-//    private final static String NAME_DIRECT_ACTIVITY = "Direct";
-//    private final static String NAME_SUPPORT_ACTIVITY = "Support";
+//    private final String NAME_COLUMN_EXPERTIS = "Employee Personnel Number";
+//    private final String  NAME_COLUMN_DEF_TEAM = "Default Team Default Team Name";
+//    private final String  NAME_COLUMN_CATEGOTY_ACTIVITY = "Final Cluster Final Cluster Name";
+//    private final String  NAME_COLUMN_ACTIVITY = "Activity Cluster Category Activity Cluster Category Name";
+//    private final String  NAME_COLUMN_TIME = "Activity Duration (h)";
+//    private final String  NAME_COLUMN_ITEMS_TOTAL = "# Items Total";
+//    private final String  NAME_COLUMN_ITEM_SHOES_RCV = "# Received Items Shoes";
+//    private final String  NAME_COLUMN_ITEM_HANGING_RCV = "# Received Items Hanging";
+//    private final String  NAME_COLUMN_ACTIVITY_NAME = "Activity Activity Name";
+//    private final String  NAME_COLUMN_ITEMS_WMO = "# Loaded WMOs to Load Carrier";
+//    private final String  NAME_COLUMN_ITEMS_ZWROTY = "# Defect Item - Categorization";
+//
+//    private final String  NAME_PROCESS_PICK = "Pick";
+//    private final String  NAME_PROCESS_STOW = "Core Stow";
+//    private final String  NAME_PROCESS_SINGLE = "Standard Pack Single";
+//    private final String  NAME_PROCESS_MULTI = "Standard Pack Multi";
+//    private final String  NAME_PROCESS_SORT = "Manual Sort";
+//    private final String  NAME_PROCESS_OPT = "Linesorter Pack";
+//    private final String  NAME_PROCESS_RCV_CORE = "Core Receive";
+//    private final String  NAME_PROCESS_RCV_FAST = "Fastlane Receive";
+//    private final String  NAME_PROCESS_RCV_REPL = "REREPLENISHMENT";
+//    private final String  NAME_PROCESS_ZWROTY = "Refurbishment";
+//    private final String  NAME_PROCESS_SHIPPING = "Shipping";
 //    private final static Set<Integer> valueExpertis = new HashSet<>();
-//    private HashMap<Integer, PerformanceWmo> performanceWmo = new HashMap<>();
-//    private HashMap<Integer, PerformanceSupportNttPack> performanceSupportNttPack = new HashMap<>();
 //
 //
 //    @SneakyThrows
 //    public synchronized void get(InputStream stream) {
 //        valueExpertis.clear();
-//        performanceWmo.clear();
-//        performanceSupportNttPack.clear();
 //        var workbook = new XSSFWorkbook(stream);
-//        var sheetUPH = workbook.getSheet(NAME_FILE_UPH_I);
-//        var sheetWmo = workbook.getSheet(NAME_FILE_UPH_WMO);
-//        performanceWmo = processingValueWmo(sheetWmo);
-//        var sheetActivities = workbook.getSheet(NAME_FILE_SUPPORT);
-//        performanceSupportNttPack = processingSupportValue(sheetActivities);
-//
-//        Map<Integer, PerformanceOPT> performanceOPT = new HashMap<>();
-//        Map<Integer, PerformanceSingle> performanceSingle = new HashMap<>();
-//        Map<Integer, PerformanceMulti> performanceMulti = new HashMap<>();
-//        Map<Integer, PerformanceSort> performanceSort = new HashMap<>();
-//        List<PerformancePack> valuePerformancePack = new ArrayList<>();
+//        var sheetUPH = workbook.getSheetAt(0);
 //        LocalDate date = null;
-//        var row1 = sheetUPH.getRow(0);
-//        int cellWorkDate = getCountRow(row1, "work date date");
-//        int cellEmployeeNumber = getCountRow(row1, "employee personnel number");
-//        int cellActivityName = getCountRow(row1, "activity activity name");
-//        int cellTotalTime = getCountRow(row1, "activity duration (h)");
-//        int cellTotalQl = getCountRow(row1, "# items total");
+//        var rowHeader = sheetUPH.getRow(3);
+//        int cellExpertis;
+//        int cellNameActivity;
+//        int cellNameProcessActivity;
+//        int cellTotalQl;
+//        int cellTotalQlBoots;
+//        int cellTotalQlHanging;
+//        int cellColumnWmoQl;
+//        int cellColumnZwrQl;
+//        int cellTotalTime;
+//
+//
 //        var maybeDate = sheetUPH.getRow(1).getCell(cellWorkDate);
 //        if (maybeDate.getCellType() == CellType.NUMERIC) {
 //            date = maybeDate.getLocalDateTimeCellValue().toLocalDate();

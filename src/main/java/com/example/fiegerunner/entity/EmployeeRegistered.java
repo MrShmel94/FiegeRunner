@@ -3,7 +3,7 @@ package com.example.fiegerunner.entity;
 import com.example.fiegerunner.entity.enums.Role;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Data

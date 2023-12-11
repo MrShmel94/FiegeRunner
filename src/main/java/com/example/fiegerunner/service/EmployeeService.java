@@ -34,16 +34,11 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class EmployeeService implements UserDetailsService {
 
-    //private final EmployeeAddReadMapper mapper;
     private final EmployeeRepository repository;
     private final CacheManager cacheManager;
     private final EmployeeCreateRepository employeeCreateRepository;
-   // private final EmployeeRepositoryAdded repositoryAdded;
-    //private final PerformancePackRepository performancePackRepository;
     private final EmployeeCreateMapper mapperCreate;
     private final EmployeeCreateReadMapper mapperCreateRead;
-    //private final PerformancePackMapper performancePackMapper;
-   // private final EmployeeReadTLMapper tlMapper;
 
     @Transactional
     public Employee createEmployee(EmployeeCreateReadDto employeeDto) {
@@ -52,41 +47,8 @@ public class EmployeeService implements UserDetailsService {
     }
 
     public EmployeeCreateReadDto findByExpertis(Integer expertis){
-        return mapperCreateRead.reverseMap(employeeCreateRepository.findByExpertise(expertis).get());
+        return mapperCreateRead.reverseMap(employeeCreateRepository.findByExpertis(expertis).get());
     }
-
-//    @Transactional
-//    public EmployeeAddRead create(EmployeeAddReadDto employee) {
-//        return Optional.of(employee)
-//                .map(mapper::map).map(repositoryAdded::save).orElseThrow();
-//    }
-
-//    @PreAuthorize("hasAnyRole('Admin', 'TeamLead', 'AreaManager')")
-//    public List<PerformanceDto> getAllPerformanceForEmployee(
-//            String userName, LocalDate dateBefore, LocalDate dateAfter
-//    ) {
-//        var maybeAllExpertis = findAllExpertisByTeam(userName);
-//        if (!maybeAllExpertis.isEmpty()) {
-//            var byAllPerformanceForYourTeam = performancePackRepository.findByAllPerformanceForYourTeam(
-//                    dateBefore, dateAfter, maybeAllExpertis.toArray(new Integer[0])
-//            );
-//            return byAllPerformanceForYourTeam.stream().map(performancePackMapper::map).collect(Collectors.toList());
-//        }
-//        return new ArrayList<>();
-//    }
-//
-//    public List<EmployeeAddRead> findAllEmployeeBySupervisorExpertis() {
-//        return new ArrayList<>();
-//    }
-//
-//    public List<EmployeeReadTLDto> allEmployeeByTeam(String userName) {
-//        var maybeAllExpertis = findAllExpertisByTeam(userName);
-//        if (!maybeAllExpertis.isEmpty()) {
-//            return repositoryAdded.findAllEmployeeByTeam(maybeAllExpertis.toArray(new Integer[0])).stream()
-//                    .map(tlMapper::map).collect(Collectors.toList());
-//        }
-//        return new ArrayList<>();
-//    }
 
     public List<EmployeeCreateReadDto> getAllUsersForTl(Integer expertis){
         return employeeCreateRepository.findAllBySupervisorExpertise(expertis)
@@ -97,7 +59,7 @@ public class EmployeeService implements UserDetailsService {
     }
 
     public EmployeeReadTLDto getUserTl(String userName){
-        Employee employee = employeeCreateRepository.findByExpertise(repository.findByUsername(userName)
+        Employee employee = employeeCreateRepository.findByExpertis(repository.findByUsername(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user:" + userName)).getExpertis()).orElseThrow();
         return mapperCreateRead.mapToReadTLDto(employee);
     }
@@ -118,7 +80,7 @@ public class EmployeeService implements UserDetailsService {
 
     @CacheEvict(value = "userDetails", key = "#username")
     public void updateUserRole(String username, String newRole) {
-        // Your existing implementation
+        //TODO
     }
 
     @Transactional
@@ -131,22 +93,10 @@ public class EmployeeService implements UserDetailsService {
     @Transactional
     public Employee updateEmployee(EmployeeCreateReadDto employee) {
         if (employee != null && employee.expertis() != null) {
-            if (employeeCreateRepository.existsByExpertise(employee.expertis())) {
+            if (employeeCreateRepository.existsByExpertis(employee.expertis())) {
                 return employeeCreateRepository.save(mapperCreateRead.map(employee));
             }
         }
         throw new IllegalArgumentException("Invalid employee data");
     }
-//    private List<Integer> findAllExpertisByTeam(String userName) {
-//        var mayBeUser = repository.findByUsername(userName);
-//        if (mayBeUser.isPresent()) {
-//            var mayBeExpertis = repositoryAdded.findByExpertis(mayBeUser.get().getExpertis());
-//            if (mayBeExpertis.isPresent()) {
-//                var employeeAddRead = mayBeExpertis.get();
-//                return repositoryAdded.findAllExpertisByTeam(employeeAddRead.getTeam().name(),
-//                        employeeAddRead.getShift().name(), employeeAddRead.getDepartment().name());
-//            }
-//        }
-//        return new ArrayList<>();
-//    }
 }

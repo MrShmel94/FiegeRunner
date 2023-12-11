@@ -1,11 +1,9 @@
 package com.example.fiegerunner.controller;
 
-import com.example.fiegerunner.Utils.JwtResponse;
 import com.example.fiegerunner.config.JwtUtils;
 import com.example.fiegerunner.dto.EmployeeCreateDto;
 import com.example.fiegerunner.dto.EmployeeLoginDto;
 import com.example.fiegerunner.exeptions.UserNotFoundException;
-import com.example.fiegerunner.mapper.EmployeeCreateMapper;
 import com.example.fiegerunner.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3001")
 @RequiredArgsConstructor
 public class LoginController {
 
@@ -33,6 +30,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody EmployeeLoginDto loginRequest) {
+
+        System.out.println(loginRequest);
 
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

@@ -1,12 +1,14 @@
 package com.example.fiegerunner.entity;
 
+import com.example.fiegerunner.entity.convert.ProcessDetailListJsonConverter;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,24 +22,20 @@ public class DailyLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @Column(name = "employee_expertis")
+    private Integer employeeExpertis;
 
-    @ManyToOne
-    @JoinColumn(name = "process_id")
-    private Process process;
+    @Convert(converter = ProcessDetailListJsonConverter.class)
+    @Column(name = "daily_log_details")
+    private List<ProcessDetail> dailyLogDetails;
 
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "items_packed", nullable = false)
-    private Integer itemsPacked;
+    @Column(name = "time_spent_support", nullable = false)
+    private Integer timeSpentSupport;
 
-    @Column(name = "items_packed_boots", nullable = false)
-    private Integer itemsPackedBoots;
-
-    @Column(name = "time_spent", nullable = false)
-    private Integer timeSpent;
+    @Column(name = "time_spent_ntt", nullable = false)
+    private Integer timeSpentNtt;
 
 }

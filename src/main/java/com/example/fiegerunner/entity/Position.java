@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -23,8 +23,5 @@ public class Position {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-//    @OneToMany(mappedBy = "position")
-//    private Set<Employee> employees;
 
 }

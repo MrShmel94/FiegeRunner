@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface EmployeeCreateRepository extends
         JpaRepository<Employee, Integer> {
 
-    Optional<Employee> findByExpertise (Integer expertis);
-    boolean existsByExpertise (Integer expertis);
+    Optional<Employee> findByExpertis (Integer expertis);
+    boolean existsByExpertis (Integer expertis);
     Optional<List<Employee>> findAllBySupervisorExpertise (Integer expertis);
 }

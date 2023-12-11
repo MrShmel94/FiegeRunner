@@ -8,9 +8,9 @@ spring:
     caffeine:
       spec: expireAfterWrite=10m
   datasource:
-    url: jdbc:postgresql://34.122.24.32:5432/TestDB
+    url: jdbc:postgresql://34.29.105.35:5432/postgres
     username: postgres
-    password: postgres
+    password: user3d0937
   servlet:
     multipart:
       max-file-size: 1MB

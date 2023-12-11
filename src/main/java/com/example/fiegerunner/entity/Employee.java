@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
@@ -36,7 +36,7 @@ public class Employee {
     private Date dateOfDismissal;
 
     @Column(name = "expertise", nullable = false, unique = true)
-    private Integer expertise;
+    private Integer expertis;
 
     @Column(name = "supervisor_expertise")
     private Integer supervisorExpertise;

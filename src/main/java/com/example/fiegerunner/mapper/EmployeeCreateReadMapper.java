@@ -31,7 +31,7 @@ public class EmployeeCreateReadMapper implements Mapper <EmployeeCreateReadDto, 
 
         return Employee.builder()
                 .id(object.id())
-                .expertise(object.expertis())
+                .expertis(object.expertis())
                 .firstName(object.firstName())
                 .lastName(object.lastName())
                 .isWorked(Optional.ofNullable(object.isWorked()).isPresent() ? object.isWorked() : true)
@@ -51,7 +51,7 @@ public class EmployeeCreateReadMapper implements Mapper <EmployeeCreateReadDto, 
     public EmployeeCreateReadDto reverseMap(Employee employee) {
         return new EmployeeCreateReadDto(
                 employee.getId(),
-                employee.getExpertise(),
+                employee.getExpertis(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getTeam().getName(),
@@ -70,7 +70,7 @@ public class EmployeeCreateReadMapper implements Mapper <EmployeeCreateReadDto, 
     public EmployeeReadTLDto mapToReadTLDto(Employee employee) {
         return new EmployeeReadTLDto(
                 employee.getId(),
-                employee.getExpertise(),
+                employee.getExpertis(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getPosition().getName()
